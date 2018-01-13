@@ -14,7 +14,7 @@ We want to sell an auto subscription of a service in our app but let the user th
 ### **Try it:**
 If you like to see the app in action <a href="mailto:elelad.dev@gmail.com" target="blank">email me</a> your relevant email address and i will add you to my testers at ituns connect and google play console.
 
-You can also see the [PWA](https://elelad.github.io/ionic-cross-platform-IAP-subscription/index.html#/home).
+You can also see the [PWA](https://elelad.github.io/ionic-subscription/index.html#/home).
 
 
 ### **Getting Started:**
