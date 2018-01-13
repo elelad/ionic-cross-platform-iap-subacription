@@ -1,0 +1,28 @@
+page-pro {
+    .scroll-content{
+        background: $back;
+    }
+
+    [dir="ltr"] .list-md, [dir="rtl"] .list-md {
+        margin: 0px 0 0px;
+    }
+
+
+    ion-card{
+        max-width: 400px;
+    }
+
+    .redText{
+        color: red;// map-get($colors, danger );
+    }
+
+    .lineH1{
+        height: 20px;
+    }
+    .mediumText{
+        font-size:  1.4rem;
+        margin-bottom: 6px;
+        color: black;
+        text-align: start;
+    }
+}

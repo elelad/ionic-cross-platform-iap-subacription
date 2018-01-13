@@ -1,0 +1,39 @@
+page-login {
+
+    .scroll-content{
+        background: $back;
+    }
+
+    [dir="ltr"] .list-md, [dir="rtl"] .list-md {
+        margin: 0px 0 0px;
+    }
+
+    .input {
+        border-bottom: 1px solid #dedede;
+    }
+
+    .input.invalid {
+        border-bottom: 1px solid $text-input-highlight-color-invalid;
+    }
+
+    .item-label-floating ion-label{
+        width: 100%;
+    }
+
+    .list-md .item-input:last-child {
+        border-bottom: 0;
+    }
+
+    /* .invalid{
+        border-bottom: 1px solid red;
+    } */
+
+    ion-card{
+        max-width: 400px;
+    }
+
+    .redText{
+        color: red;// map-get($colors, danger );
+      }
+
+}

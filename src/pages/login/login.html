@@ -1,0 +1,139 @@
+<ion-header>
+    <ion-navbar color="dark">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Ionic Subscriptios</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding>
+
+    <div *ngIf="!authService.loggedIn">
+        <ion-card class="center">
+            <ion-card-header *ngIf="!firebaseDBService.paidUser" class="bg-primary">
+                <ion-segment [(ngModel)]="mode" color="light">
+                    <ion-segment-button value="signup">
+                        Sign Up
+                    </ion-segment-button>
+                    <ion-segment-button value="signin">
+                        Sign In
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-card-header>
+            <div [ngSwitch]="mode">
+                <div *ngSwitchCase="'signup'">
+                    <ion-card-content padding-vertical>
+                        <ion-list>
+                                <ion-item>
+                                    <ion-label floating>Name</ion-label>
+                                    <ion-input [(ngModel)]="signUpName" type="text" clearInput></ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label floating>Email</ion-label>
+                                    <ion-input [(ngModel)]="signUpMail" type="text" clearInput></ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label floating>Password</ion-label>
+                                    <ion-input [(ngModel)]="signUpPassword" type="password" clearInput></ion-input>
+                                </ion-item>
+                                <ion-item *ngIf="errorMsg != ''" text-wrap no-lines>
+                                    <p class="redText">{{errorMsg}}</p>
+                                </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                    <ion-card-header class="bg-primary">
+                        <button [disabled]="signUpEmail == '' || signUpPassword == ''" color="secondary" ion-button icon-left (click)="signUp()">
+                            <ion-icon name="ios-log-in"></ion-icon>
+                            Sign
+                        </button>
+                    </ion-card-header>
+                </div>
+                <div *ngSwitchCase="'signin'">
+                    <ion-card-content padding-vertical>
+                            <ion-list>
+                                <ion-item>
+                                    <ion-label floating>Email</ion-label>
+                                    <ion-input [(ngModel)]="signInMail" type="text" clearInput></ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label floating>Password</ion-label>
+                                    <ion-input [(ngModel)]="signInPassword" type="password" clearInput></ion-input>
+                                </ion-item>
+                                <ion-item *ngIf="errorMsg != ''" text-wrap no-lines>
+                                    <p class="redText">{{errorMsg}}</p>
+                                </ion-item>
+                            </ion-list>
+                        <br>
+                        <button small color="light" ion-button
+                            icon-left (click)="resetPassword()">
+                            <ion-icon name="mail"></ion-icon>
+                            reset password
+                        </button>
+                    </ion-card-content>
+                    <ion-card-header class="bg-primary">
+                        <button [disabled]="signInEmail == '' || signInPassword == ''" color="secondary" ion-button icon-left (click)="signIn()">
+                            <ion-icon name="ios-log-in"></ion-icon>
+                            Login
+                        </button>
+                        <br>
+                        <br>
+                    </ion-card-header>
+                </div>
+            </div>
+        </ion-card>
+    </div>
+
+    <div *ngIf="authService.loggedIn">
+        <br>
+        <br>
+        <h2>Thank you for logging-in</h2>
+        <br>
+        <button *ngIf="true" icon-start ion-button color="danger" (click)="goTo('Home')">
+            <ion-icon name="home"></ion-icon>
+            Home
+        </button>
+        <br><br>
+        <button color="primer" ion-button icon-left (click)="authService.signOut()">
+            <ion-icon name="ios-log-out"></ion-icon>
+            LogOut
+        </button>
+
+    </div>
+
+</ion-content>
+
+
+<!-- <div *ngIf="!authService.loggedIn" class="pad10">
+                <!--*ngIf="!authService.loggedIn"  [ngClass]="{rtl: tService.tRtl, alignRight: tService.tRtl}"//
+                <span>Login for free to get full functionality:</span>
+                <ul class="noMarginB alignStart">
+                    <!--[ngClass]="{rtl: tService.tRtl, alignRight: tService.tRtl}"//
+                    <li>Download items</li>
+                    <li>Back-up your data on-line</li>
+                    <li>Sync all your devices</li>
+                </ul>
+                <br>
+                <span>We will not send you any spam or email</span>
+            </div> //
+            <div *ngIf="!authService.loggedIn" class="alignCenter">
+                <!--*ngIf="!authService.loggedIn"  [ngClass]="{rtl: tService.tRtl, alignRight: tService.tRtl}"//
+                <br>
+                <button ion-button tabindex="0" (click)="authService.signInWithGoogle()"><!--(click)="authService.toggleSignIn()" [ngClass]="{rtl: tService.tRtl, alignRight: tService.tRtl}"
+                role="button"//
+                    <img class="googleIcon" [src]="googleIcon" alt="google icon">&nbsp;
+                    Sign In With Google
+                </button>
+            </div>
+            <!-- <div *ngIf="authService.loggedIn" class="alignCenter">
+                <h2>{{authService.firstName}},</h2>
+                <p><span>Thank you for logging-in, ComBoard will backup your data on-line</span><br><br>
+                    <span>for more information about your options go to</span>
+                    <a class="pointer" (click)="goToSetting()">Setting</a>
+                </p><br><br>
+                <button ion-button icon-left (click)="authService.signOut()">
+                    <ion-icon name="log-out"></ion-icon>
+                    LogOut
+                    </button>
+            </div> -->

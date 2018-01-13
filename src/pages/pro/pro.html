@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Ionic Subscriptions</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding>
+  <ion-card class="center">
+    <ion-item *ngIf="authService.loggedIn" no-lines>
+      <ion-icon color="primary" name="contact" item-start></ion-icon>
+      <h2>{{authService.displayName}}</h2>
+    </ion-item>
+    <ion-card-header *ngIf="!firebaseDBService.paidUser && iapService.validationEnd && authService.signUpDone  && !iapService.buyAtProccess"
+      class="bg-primary">
+      <!-- <span *ngIf="!authService.loggedIn">Login'| myI18n:tService.tData}}</span> -->
+      <span>Unlock Pro Version</span>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="iapService.validationEnd && authService.signUpDone && !iapService.buyAtProccess" padding-vertical>
+      <div *ngIf="!firebaseDBService.paidUser" class="alignStart">
+        <!--  class="alignCenter" -->
+        <ion-list no-lines class="alignStart">
+          <ion-item detail-none no-lines>
+            <ion-icon small color="primary" name="power" item-start></ion-icon>
+            Super Power
+          </ion-item>
+          <ion-item detail-none>
+            <ion-icon small color="primary" name="disc" item-start></ion-icon>
+            Super Memory
+          </ion-item>
+          <ion-item detail-none>
+            <ion-icon small color="primary" name="wifi" item-start></ion-icon>
+            Invisibility
+          </ion-item>
+          <ion-item color="light" detail-none>
+            <ion-icon small color="primary" name="cart" item-start></ion-icon>
+            Free 30-days Trial
+          </ion-item>
+          <ion-item detail-none>
+            <ion-icon small color="primary" name="card" item-start></ion-icon>
+            <strong>Only {{product.price}}/month</strong>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="alignCenter" color="secondary">
+        <div *ngIf="authService.loggedIn && !firebaseDBService.paidUser">
+          <ion-item>Thank you for logging-in</ion-item>
+          <div *ngIf="!firebaseDBService.paidUser">
+            <div *ngIf="plt.is('core') || plt.is('mobileweb')">
+              <ion-item class="alignCenter redText" text-wrap>
+                We only support payment through the app at the moment, please access this page through the app
+                <p class="alignCenter">
+                  <a>Download Now</a>
+                </p>
+              </ion-item>
+            </div>
+            <button *ngIf="plt.is('android') || plt.is('ios')" color="secondary" ion-button icon-left (click)="iapService.buy()">
+              Purchase
+            </button>
+          </div>
+        </div>
+        <div *ngIf="authService.loggedIn && firebaseDBService.paidUser" class="alignStart">
+          <ion-item text-wrap>
+            <h2 class="alignCenter redText">Thanks for your subscription</h2>
+            <p *ngIf="cancelLink != ''"><br>You can cancel it any time
+              <a target="blank" href="{{cancelLink}}">here</a>
+            </p>
+          </ion-item>
+        </div>
+        <!-- Information required for presentation under the Apple Developer Agreement -->
+        <div *ngIf="authService.loggedIn && plt.is('ios')">
+          <br>
+          <br>
+          <div class="mediumText">
+            <strong>
+              To get Pro Version you need to purchase an auto-renewable subscription. some details about it:
+            </strong>
+          </div>
+          <div class="mediumText">
+            - Subscription duration: one month.</div>
+          <div class="mediumText">
+            - Subscription price:&nbsp;{{product.price}}&nbsp;per month.</div>
+          <div class="mediumText">
+            - Trial Period: one month.</div>
+          <div class="mediumText">
+            - Auto-renew: this is an auto-renewable subscription.
+          </div>
+          <div class="mediumText">
+            - Payment will be charged to iTunes Account at confirmation of purchase.
+          </div>
+          <div class="mediumText">
+            - Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period.
+          </div>
+          <div class="mediumText">
+            - Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of
+            the renewal.
+          </div>
+          <div class="mediumText">
+            - Subscriptions may be managed by the user and auto-renewal may be turned off by going to the users Account Settings after
+            purchase.
+          </div>
+          <p class="alignStart" class="mediumText">
+            <u>
+              <a>Term of Service</a>
+            </u>,
+            <u>
+              <a>Privacy Policy</a>
+            </u>
+          </p>
+          <br>
+        </div>
+        
+      </div>
+    </ion-card-content>
+    <ion-card-content *ngIf="!iapService.validationEnd || !authService.signUpDone || iapService.buyAtProccess" padding-vertical>
+      <div class="alignCenter">
+        <ion-spinner name="crescent"></ion-spinner>
+        <br> Loading...
+        <br> {{iapService.userMsg}}
+      </div>
+    </ion-card-content>
+    <ion-card-header *ngIf="iapService.validationEnd && authService.signUpDone && !iapService.buyAtProccess" class="bg-primary">
+      <button color="light" *ngIf="!authService.loggedIn" ion-button icon-right text-wrap text-center tabindex="0" (click)="pushTo('Login')">
+        Sign up
+      </button>
+      <button *ngIf="authService.loggedIn" color="light" ion-button icon-left (click)="authService.signOut()">
+        <ion-icon name="ios-log-out"></ion-icon>
+        LogOut
+      </button>
+    </ion-card-header>
+    <ion-card-header *ngIf="iapService.buyAtProccess" class="bg-primary">
+      <button color="light" ion-button icon-right text-wrap text-center tabindex="0" (click)="iapService.refresh()">
+        <ion-icon name="refresh"></ion-icon>
+        Refrash
+      </button>
+    </ion-card-header>
+  </ion-card>
+</ion-content>
