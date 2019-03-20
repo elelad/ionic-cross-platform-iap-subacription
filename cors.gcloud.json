@@ -1,0 +1,9 @@
+[
+    {
+      "origin": ["http://localhost:8888", "file:///", "http://localhost:8100"],
+      "responseHeader": ["Content-Type"],
+      "method": ["GET", "HEAD", "DELETE"],
+      "maxAgeSeconds": 3600
+    }
+]
+

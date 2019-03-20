@@ -119,6 +119,7 @@ You can also see the [PWA](https://elelad.github.io/ionic-subscription/index.htm
 8. #### Cors setup
     - Use gsutil to setup Cors for firebase project. This step is required for the application to communicate with the server.
     - If you do not have gsutil installed, [install it](https://cloud.google.com/storage/docs/gsutil_install).
+    - The the file cors.gcloud.json is in the root folder in this file add to origin array any address you using for your app.
     - Replace the xxxxxxxxx with your firebase app id an run: 
     ````
     gsutil cors set cors.gcloud.json gs://xxxxxxxxx.appspot.com
